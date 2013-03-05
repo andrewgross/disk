@@ -1,0 +1,7 @@
+Makefile
+Berksfile
+Berksfile.lock
+Gemfile
+Gemfile.lock
+.vagrant
+.DS_Store
