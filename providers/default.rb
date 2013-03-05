@@ -30,5 +30,6 @@ action :format do
     notifies :run, "execute[Format Device #{block_device} to #{file_system}]", :immediately
   end 
 
-  
+  new_resource.updated_by_last_action(true)
+
 end
