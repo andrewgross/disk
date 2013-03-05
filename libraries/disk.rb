@@ -6,7 +6,7 @@ module Disk
     include Chef::Mixin::ShellOut
 
     def _run_command(command)
-      return shell_out!(command).stdout
+      return %x[#{command}]
     end
 
     def needs_formatting(nr)
@@ -21,8 +21,8 @@ module Disk
 
     def drive_empty(nr)
       command = "ls -A #{nr.mount_point} | grep -v lost+found | wc -l"
-      Chef::Log.debug("Drive Contains how many files? #{command}")
       result = _run_command(command)
+      Chef::Log.debug("Drive Contains how many files? #{result}")
       if result.to_i > 0
         r = false
       else
@@ -36,7 +36,7 @@ module Disk
       command = "df -T | grep #{nr.block_device} | awk '{print $2}'"
       result = _run_command(command)
       r = result.chomp != nr.file_system
-      Chef::Log.debug("Wrong FS? #{result}")
+      Chef::Log.debug("Wrong FS? #{r}")
       r
     end
 
