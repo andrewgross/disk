@@ -13,7 +13,6 @@ action :format do
     mount_point mount_point
     device block_device
     only_if { needs_formatting && mounted }
-    notifies :run, "execute[Format Device #{block_device} to #{file_system}]", :immediately
   end 
 
   execute "Format Device #{block_device} to #{file_system}" do
